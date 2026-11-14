@@ -1,8 +1,8 @@
 ## Interface: 16001
 ## Title: 我的无限 · |cff80c9ef目标选择|r
-## Notes: 友方团队、小队与附近玩家；敌方玩家与怪物。两侧独立关闭，左侧“目”字图标控制面板。脱战普通技能悬停；左键选中、右键焦点、Ctrl+右键标记。/mytargets
+## Notes: 友方团队、小队与附近玩家；敌方玩家与怪物。两侧独立关闭，左侧“目”字图标控制面板。普通技能悬停（脱战全部格子，战斗中限队伍/团队/焦点/首领等固定单位）；左键选中、右键焦点、Ctrl+右键标记。/mytargets
 ## Author: Personal Addons
-## Version: 0.1.45
+## Version: 0.1.47
 ## SavedVariablesPerCharacter: MyForeverTargetsDB, MyForeverTargetsLogDB
 
 Libs/LibStub/LibStub.lua
@@ -15,6 +15,7 @@ Quest.lua
 Units.lua
 Mouseover.lua
 NearbyCast.lua
+CombatHover.lua
 CombatCast.lua
 GUIDProbeLog.lua
 GUIDProbe.lua

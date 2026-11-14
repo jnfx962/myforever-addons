@@ -9,7 +9,7 @@
 | 微信式聊天 MyForeverChat | 0.9.3 | 0.9.3 | 已发布；最终紧凑泡泡布局仍有实机验收缺口 |
 | 商业技能助手 MyForeverProfessions | **0.4.7-dev.22** | **0.4.6** | 本机实验；未验收、禁止发布 |
 | 世界向导 MyForeverNavigator | **0.4.1** | **0.4.1** | 已发布；NPC 与专业训练师目录仍待实机流程验收 |
-| 目标选择 MyForeverTargets | **0.1.45** | **0.1.46** | 本机探针与公开基线是两条代码线，不能按版本号大小判断 |
+| 目标选择 MyForeverTargets | **0.1.47** | **0.1.46** | 本机候选含 0.1.45 探针与 0.1.47 战斗固定单位悬停；未游戏实测、未发布 |
 | 玩家行为采集 MyForeverCoach | 0.2.0 | 未列入公开插件目录 | 本机行为统计候选 |
 | 宏工坊 MyForeverMacros | 0.2.2 | 未列入独立官网插件目录 | 本机插件 |
 | 随身手册 MyForeverFieldKit | 0.1.0 | 未列入独立官网插件目录 | 本机插件 |
@@ -60,6 +60,8 @@
 **证据：** `TARGETS-VALIDATION.md` 开头、`research/combat-focus-70888-20261112/PLAN.md`、`SCALE-PROBE.md`、`OTHER-ADDONS-AUDIT.md`、`research/focus-api-70862-20261111/CURRENT-FOCUS-CONCLUSION.md`。
 
 ## P2 / MFT-002：悬停施法与焦点恢复的实测覆盖有限
+
+**2026-11-14 更新：** 用户报告友方悬停施法进战失效、敌方面板不支持悬停施法。本机 0.1.47 新增 `CombatHover.lua`，按 Clique 式受限包装在战斗中把普通技能键临时绑到安全代理，对固定单位格（自己、小队、团队、宠物、目标、焦点、首领、竞技场）直接施法；附近姓名板格仍不支持。仅模拟通过（原 20 套 + 新 107 项），维护机器无游戏，尚未游戏实测或发布。详见 `PersonalAddons/TARGETS-VALIDATION.md` 顶部和 [交接说明](docs/HANDOFF-2026-11-14-targets-combat-hover.md)。
 
 附近友方“脱战悬停格子、按原普通技能键、恢复原目标”有用户实测成功，但采用临时选中方案，不能宣称通用原生 `@mouseover` 已修复。敌方与敌人目标条的实际施法/恢复、战斗悬停、原目标为空的合并流程以及更多步完整恢复仍未完整验收。原生队伍等已支持单位与任意附近 NPC 不能混为一类。
 
