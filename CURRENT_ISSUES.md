@@ -10,10 +10,10 @@
 | 商业技能助手 MyForeverProfessions | **0.4.7-dev.22** | **0.4.6** | 本机实验；未验收、禁止发布 |
 | 世界向导 MyForeverNavigator | **0.4.1** | **0.4.1** | 已发布；NPC 与专业训练师目录仍待实机流程验收 |
 | 目标选择 MyForeverTargets | **0.1.45** | **0.1.46** | 本机探针与公开基线是两条代码线，不能按版本号大小判断 |
-| 玩家行为采集 MyForeverCoach | 0.2.0 | 未列入公开插件目录 | 本机行为统计候选 |
+| 玩家行为采集 MyForeverCoach | 0.2.1 | 未列入公开插件目录 | 本机行为统计候选；0.2.1 新增区域经验/死亡，尚未游戏实测 |
 | 宏工坊 MyForeverMacros | 0.2.2 | 未列入独立官网插件目录 | 本机插件 |
 | 随身手册 MyForeverFieldKit | 0.1.0 | 未列入独立官网插件目录 | 本机插件 |
-| 桌面管理器 | **0.3.1** | **0.2.1** | 本机源码含行为统计；公开版仅插件管理 |
+| 桌面管理器 | **0.3.2** | **0.2.1** | 本机源码含行为统计、关键发现与可选 AI 复盘（未编译验证，见 MFM-002）；公开版仅插件管理 |
 
 首次交接只读核对五个线上 `latest.json`，与各自元数据一致；追加同步时导航已更新到 0.4.1，并再次核对导航线上元数据及实际下载包的大小/SHA-256。其他模块仍沿用首次核对结果。本次 Git 同步没有触发发布，也没有重新执行全站历史资源下载验收。更早的 `PersonalAddons/README.md` 和验证文档保留历史上下文，不能覆盖本表。
 
@@ -84,6 +84,12 @@
 **行为统计边界：** SavedVariables 通常 `/reload` 或退出才写盘；桌面不能读取尚未写盘的事件。分日固定 UTC+08:00，保留 90 天日累计，旧采集片段有缺失；静止不是挂机，施法失败不是误操作。采集器与管理器不得采集按键/聊天/姓名/GUID，不上传行为数据。跨日、战斗、死亡、任务、容量等需要对应真实场景，不可从一次自疗及导入测试推定全部通过。
 
 **入口：** `Manager/Core/UpdateService.cs`、`GamePaths.cs`、`BehaviorDataService.cs`、`BehaviorLuaReader.cs`、`Desktop/BehaviorStatisticsView.cs`；测试使用隔离目录。见 `Manager/README.md`、`BEHAVIOR-CONTRACT.md`、`BEHAVIOR-VALIDATION.md`。
+
+## P2 / MFM-002：行为统计分析与 AI 复盘待编译、测试与实机评审
+
+2026-11-15 按用户要求「把个人信息统计和分析做的好一点，让他真的能帮到玩家，如有必要可以接入大模型帮助判断」新增：本机规则分析（关键发现、效率指标、同长度周期对比）、采集器按区域记录经验/死亡/进入战斗、默认关闭的 AI 复盘（OpenAI 兼容接口，发送前预览，密钥默认不落盘）。口径与隐私边界见 `Manager/BEHAVIOR-CONTRACT.md` 末节。
+
+**未完成：** 本次编写环境没有 .NET SDK 与 Lua 5.1，`BehaviorTests` 新增 9 个用例与 `behavior_test.lua` 新断言均未运行，Desktop 也未编译。接手先运行 `dotnet run --project BehaviorTests/...`、`dotnet build Desktop/... -c Release` 与 `tools/check_addons.py`；然后在游戏中 /reload 采集器 0.2.1，打几场战斗、获得经验、换一次区域后写盘，确认区域经验/死亡；最后用真实密钥或本机 Ollama 各请求一次 AI 复盘，检查预览与实际请求一致、错误提示与取消可用。规则阈值是首版经验值，需用更多真实记录评估是否过严或过松。此项不解除 UX-001。
 
 ## P2 / MFC-001：聊天紧凑泡泡和部分操作仍需当前版本实测
 
